@@ -2,9 +2,25 @@ POST http://localhost:3000/employee
 Content-Type: application/json
 
 {
-    "name": "Nihal K",
-    "email": "three@test.com"
+    "name": "James K",
+    "email": "two@test.com"
 }
 
 ### Get employees
 GET http://localhost:3000/employee
+
+### Get employee by id
+GET http://localhost:3000/employee/67445ccf-9d52-4fcf-8b44-ccb995297e00
+
+### Update employee data
+PATCH http://localhost:3000/employee/67445ccf-9d52-4fcf-8b44-ccb995297e00
+Content-Type: application/json
+
+{
+    "car": "James Kather",
+    "annualLeaveBalance": 25
+}
+
+### soft delete employee by id
+DELETE  http://localhost:3000/employee/67445ccf-9d52-4fcf-8b44-ccb995297e00
+

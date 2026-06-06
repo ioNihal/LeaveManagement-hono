@@ -7,6 +7,7 @@ import {
     pgEnum,
     timestamp,
     date,
+    boolean,
 } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", [
@@ -20,6 +21,7 @@ export const leaveStatusEnum = pgEnum("leave_status", [
     "REJECTED",
     "CANCELLED",
 ]);
+
 
 export const employeeTable = pgTable("employees", {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -37,6 +39,13 @@ export const employeeTable = pgTable("employees", {
     annualLeaveBalance: integer("annual_leave_balance")
         .notNull()
         .default(20),
+
+
+    active: boolean("active").default(true).notNull(),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+
+    updatedAt: timestamp("updated_at").defaultNow().notNull()
 });
 
 export const leaveRequestTable = pgTable("leave_requests", {

@@ -15,6 +15,20 @@
       "when": 1780740969362,
       "tag": "0001_productive_puck",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780763751213,
+      "tag": "0002_salty_cloak",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780764153288,
+      "tag": "0003_steep_bug",
+      "breakpoints": true
     }
   ]
 }

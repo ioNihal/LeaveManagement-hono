@@ -9,6 +9,18 @@ export const EmployeeCreateSchema = z.object({
 
 export type EmployeeCreateType = z.infer<typeof EmployeeCreateSchema>
 
+export const EmployeeUpdateSchema = z.object({
+    name: z.string().min(3, "Must be at least 3 characters").max(255),
+    email: z.email("Invalid email address!"),
+    role: z.enum(["employee", "manager"]),
+    annualLeaveBalance: z.number().int().min(0),
+}).partial().refine(
+    (data) => Object.keys(data).length > 0,
+    { message: "At least one valid field must be provided" }
+)
+
+export type EmployeeUpdateType = z.infer<typeof EmployeeUpdateSchema>
+
 export const LeaveRequestCreateSchema = z.object({
     employeeId: z.uuid(),
     startDate: z.iso.date(),
@@ -20,3 +32,6 @@ export const LeaveRequestCreateSchema = z.object({
 })
 
 export type LeaveRequestCreateType = z.infer<typeof LeaveRequestCreateSchema>
+
+
+export const idParamSchema = z.object({ id: z.uuid("Invalid Id") });
