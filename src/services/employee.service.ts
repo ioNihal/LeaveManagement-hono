@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "../db";
-import { employeeTable } from "../db/schema";
+import { employeeTable, leaveRequestTable } from "../db/schema";
 import { EmployeeCreateType, EmployeeUpdateType } from "../schema/validator";
 
 export const employeeService = {
@@ -54,19 +54,29 @@ export const employeeService = {
     },
 
     async delete(id: string) {
-        const [employee] = await db
-            .update(employeeTable)
-            .set({ active: false, updatedAt: new Date() })
-            .where(eq(employeeTable.id, id))
-            .returning()
+        return await db.transaction(async (tx) => {
+            await tx
+                .update(leaveRequestTable)
+                .set({ status: "CANCELLED", updatedAt: new Date() })
+                .where(and(
+                    eq(leaveRequestTable.employeeId, id),
+                    eq(leaveRequestTable.status, "PENDING")
+                ))
 
-        return employee
+            const [employee] = await tx
+                .update(employeeTable)
+                .set({ active: false, updatedAt: new Date() })
+                .where(eq(employeeTable.id, id))
+                .returning()
+
+            return employee
+        })
     },
 
-    async reactivate(id: string) {
+    async reactivate(id: string, data: EmployeeCreateType) {
         const [employee] = await db
             .update(employeeTable)
-            .set({ active: true, updatedAt: new Date() })
+            .set({ ...data, active: true, updatedAt: new Date() })
             .where(eq(employeeTable.id, id))
             .returning()
 

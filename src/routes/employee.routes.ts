@@ -25,12 +25,8 @@ employeeRoutes.post("/", validate("json", EmployeeCreateSchema), async (c) => {
     }
 
     if (existing && !existing.active) {
-        const reactivatedEmployee = await employeeService.reactivate(existing.id)
-
-        return c.json({
-            message: "Employe profile reactivated",
-            reactivatedEmployee
-        }, 201)
+        const reactivatedEmployee = await employeeService.reactivate(existing.id, body)
+        return c.json({ message: "Employee profile reactivated", reactivatedEmployee }, 200)
     }
 
     const employee = await employeeService.create(body)
@@ -68,7 +64,7 @@ employeeRoutes.patch("/:id",
 
         const updatedEmployee = await employeeService.update(body, id);
 
-        return c.json(updatedEmployee, 200)
+        return c.json({ message: "Employee updated", updatedEmployee }, 200)
     })
 
 
@@ -83,7 +79,7 @@ employeeRoutes.delete("/:id", validate("param", idParamSchema), async (c) => {
 
     const deletedEmployee = await employeeService.delete(id)
 
-    return c.json(deletedEmployee, 200)
+    return c.json({ message: "Employee deleted", deletedEmployee }, 200)
 })
 
 export default employeeRoutes
