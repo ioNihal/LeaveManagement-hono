@@ -1,5 +1,6 @@
 import * as z from "zod"
 
+// create employe profile
 export const EmployeeCreateSchema = z.object({
     name: z.string().min(3, "Must be at least 3 characters").max(255),
     email: z.email("Invalid email address!"),
@@ -9,6 +10,7 @@ export const EmployeeCreateSchema = z.object({
 
 export type EmployeeCreateType = z.infer<typeof EmployeeCreateSchema>
 
+// update employee profile
 export const EmployeeUpdateSchema = z.object({
     name: z.string().min(3, "Must be at least 3 characters").max(255),
     email: z.email("Invalid email address!"),
@@ -21,6 +23,7 @@ export const EmployeeUpdateSchema = z.object({
 
 export type EmployeeUpdateType = z.infer<typeof EmployeeUpdateSchema>
 
+// create leave request
 export const LeaveRequestCreateSchema = z.object({
     employeeId: z.uuid(),
     startDate: z.iso.date(),
@@ -33,5 +36,11 @@ export const LeaveRequestCreateSchema = z.object({
 
 export type LeaveRequestCreateType = z.infer<typeof LeaveRequestCreateSchema>
 
-
+// id param 
 export const idParamSchema = z.object({ id: z.uuid("Invalid Id") });
+
+// sign in schema
+export const SignInSchema = z.object({
+    name: z.string().min(3, "Must be at least 3 characters").max(255),
+    email: z.email("Invalid email address!"),
+})
