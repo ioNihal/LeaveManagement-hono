@@ -2,7 +2,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { EmployeeCreateSchema, EmployeeUpdateSchema, idParamSchema } from "../schema/validator";
 import { employeeService } from "../services/employee.service";
-import { validate } from "../utils/validate";
+import { validate } from "../middlewares/validate";
 
 const employeeRoutes = new Hono();
 
