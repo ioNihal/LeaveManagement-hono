@@ -89,7 +89,7 @@ export const auditLogTable = pgTable("audit_logs", {
         .notNull()
         .references(() => employeeTable.id),
 
-    action: varchar("action", { length: 50 }).notNull(),
+    action: varchar("action", { length: 255 }).notNull(),
 
     createdAt: timestamp("created_at")
         .defaultNow()
