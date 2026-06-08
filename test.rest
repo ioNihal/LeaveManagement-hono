@@ -3,8 +3,9 @@ POST http://localhost:3000/employee
 Content-Type: application/json
 
 {
-    "name": "James K",
-    "email": "two@test.com"
+    "name": "John Doe",
+    "email": "john@manager.com",
+    "role": "manager"
 }
 
 ### Get employees
@@ -24,5 +25,26 @@ Content-Type: application/json
 
 ### soft delete employee by id
 DELETE  http://localhost:3000/employee/67445ccf-9d52-4fcf-8b44-ccb995297e00
+
+
+### signIn
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@manager.com"
+}
+
+### approve request
+POST http://localhost:3000/leave/
+Content-Type: application/json
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzlmYmM3Ny02OTg2LTQ4YjItYjc5OS1hOWMwNDc1Y2I1MTQiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obkBtYW5hZ2VyLmNvbSIsImlhdCI6MTc4MDkxMzAzNCwiZXhwIjoxNzgwOTEzMTU0fQ.pQulVhtkwoH6_clwaUX0CkSF1a-QDS9zG64jg-_r-6w"
+
+{
+    "name": "John Doe",
+    "email": "john@manager.com"
+}
+
 
 
