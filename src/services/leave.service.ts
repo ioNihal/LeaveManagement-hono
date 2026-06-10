@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "../db";
-import { leaveRequestTable } from "../db/schema";
+import { employeeTable, leaveRequestTable } from "../db/schema";
 import { LeaveRequestCreateType } from "../schema/validator";
 import { auditServices } from "./audit.service";
 
@@ -16,10 +16,28 @@ export const leaveServices = {
                 leaveRequestId: leave.id,
                 performedBy,
                 action: "Created new Leave Request",
-            })
+            }, tx)
 
             return { leave, logMessage: log.action }
         })
+    },
+
+    async getAll() {
+        const leaves = await db
+            .select({
+                leaveId: leaveRequestTable.id,
+                startDate: leaveRequestTable.startDate,
+                endDate: leaveRequestTable.endDate,
+                status: leaveRequestTable.status,
+                employeeId: employeeTable.id,
+                employeeName: employeeTable.name,
+                employeeEmail: employeeTable.email,
+            })
+            .from(leaveRequestTable)
+            .innerJoin(employeeTable, eq(leaveRequestTable.employeeId, employeeTable.id))
+            .orderBy(desc(leaveRequestTable.createdAt))
+
+        return leaves
     },
 
 
@@ -30,7 +48,7 @@ export const leaveServices = {
             .where(eq(leaveRequestTable.id, id))
             .limit(1)
 
-        return result[0] && null
+        return result[0] ?? null
     },
 
     async approve(id: string, performedBy: string) {
@@ -45,7 +63,7 @@ export const leaveServices = {
                 leaveRequestId: leave.id,
                 performedBy,
                 action: "Approved Leave Request",
-            })
+            }, tx)
 
             return { leave, logMessage: log.action }
         })
@@ -63,7 +81,7 @@ export const leaveServices = {
                 leaveRequestId: leave.id,
                 performedBy,
                 action: "Rejected new Leave Request",
-            })
+            }, tx)
 
             return { leave, logMessage: log.action }
         })
@@ -81,7 +99,7 @@ export const leaveServices = {
                 leaveRequestId: leave.id,
                 performedBy,
                 action: "Cancelled new Leave Request",
-            })
+            }, tx)
 
             return { leave, logMessage: log.action }
         })
