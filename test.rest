@@ -36,15 +36,30 @@ Content-Type: application/json
     "email": "john@manager.com"
 }
 
-### approve request
-POST http://localhost:3000/leave/
+### Create a leave request
+POST http://localhost:3000/leave
 Content-Type: application/json
-Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzlmYmM3Ny02OTg2LTQ4YjItYjc5OS1hOWMwNDc1Y2I1MTQiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obkBtYW5hZ2VyLmNvbSIsImlhdCI6MTc4MDkxMzAzNCwiZXhwIjoxNzgwOTEzMTU0fQ.pQulVhtkwoH6_clwaUX0CkSF1a-QDS9zG64jg-_r-6w"
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzlmYmM3Ny02OTg2LTQ4YjItYjc5OS1hOWMwNDc1Y2I1MTQiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obkBtYW5hZ2VyLmNvbSIsImlhdCI6MTc4MTA5MzcxOCwiZXhwIjoxNzgxMDk0NjE4fQ.ka1aGCp19g_YFmUkGPe-elGfrtiegBcJkv7KNs7MMjA
 
 {
-    "name": "John Doe",
-    "email": "john@manager.com"
+    "employeeId": "4957edc2-a752-49e7-82f3-d3dc21125f09",
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-16",
+    "reason": "I am haveing marriage, i need urgent leave for four days please"
 }
+
+### Get all leaves
+GET http://localhost:3000/leave
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzlmYmM3Ny02OTg2LTQ4YjItYjc5OS1hOWMwNDc1Y2I1MTQiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obkBtYW5hZ2VyLmNvbSIsImlhdCI6MTc4MTA5NDc3MCwiZXhwIjoxNzgxMDk1NjcwfQ.N3krVVvK1RVxtPMd0rRN704EQHuBrOTuZjMP0UIZcvc
+
+
+### approve request
+PATCH  http://localhost:3000/leave/c5466f1e-6439-4455-b7fc-b576f6d40e2a/approve
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzlmYmM3Ny02OTg2LTQ4YjItYjc5OS1hOWMwNDc1Y2I1MTQiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obkBtYW5hZ2VyLmNvbSIsImlhdCI6MTc4MTA5NDc3MCwiZXhwIjoxNzgxMDk1NjcwfQ.N3krVVvK1RVxtPMd0rRN704EQHuBrOTuZjMP0UIZcvc
+
+### reject request
+PATCH  http://localhost:3000/leave/69bc98b2-62e4-4330-aba4-4ecb55b0cc01/reject
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNzlmYmM3Ny02OTg2LTQ4YjItYjc5OS1hOWMwNDc1Y2I1MTQiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obkBtYW5hZ2VyLmNvbSIsImlhdCI6MTc4MTA5NDc3MCwiZXhwIjoxNzgxMDk1NjcwfQ.N3krVVvK1RVxtPMd0rRN704EQHuBrOTuZjMP0UIZcvc
 
 
 
