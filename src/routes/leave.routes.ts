@@ -7,6 +7,18 @@ import { authMiddleware, VariablesType } from "../middlewares/auth"
 
 const leaveRoutes = new Hono<{ Variables: VariablesType }>()
 
+leaveRoutes.get("/", authMiddleware, async (c) => {
+    const leaves = await leaveServices.getAll()
+
+    if (leaves.length === 0) {
+        return c.json({
+            message: "No leaves found"
+        }, 200)
+    }
+
+    return c.json({ count: leaves.length, leaves })
+})
+
 leaveRoutes.post("/", authMiddleware, validate("json", LeaveRequestCreateSchema), async (c) => {
     const body = c.req.valid("json")
     const user = c.get("user")
