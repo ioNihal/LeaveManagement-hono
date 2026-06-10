@@ -27,7 +27,7 @@ authRoutes.post("/", validate("json", SignInSchema), async (c) => {
         userId: employee.id,
         userName: employee.name,
         userEmail: employee.email
-    }, JWT_SECRET, { expiresIn: "2m" })
+    }, JWT_SECRET, { expiresIn: "15m" })
 
 
     return c.json({
