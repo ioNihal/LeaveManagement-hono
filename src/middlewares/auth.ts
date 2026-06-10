@@ -1,4 +1,4 @@
-import { Context, MiddlewareHandler } from "hono";
+import { MiddlewareHandler } from "hono";
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../routes/auth.routes";
 import type { UserPayloadFromJWT } from "../routes/auth.routes";
