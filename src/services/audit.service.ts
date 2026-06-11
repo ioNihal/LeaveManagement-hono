@@ -1,6 +1,6 @@
-import { ExtractTablesWithRelations } from "drizzle-orm";
+import { eq, ExtractTablesWithRelations } from "drizzle-orm";
 import { Database, db } from "../db";
-import { auditLogTable } from "../db/schema";
+import { auditLogTable, employeeTable, leaveRequestTable } from "../db/schema";
 import { PostgresJsQueryResultHKT } from "drizzle-orm/postgres-js";
 import { PgTransaction } from "drizzle-orm/pg-core";
 
@@ -22,5 +22,15 @@ export const auditServices = {
             .returning();
 
         return log
+    },
+
+    async getAll() {
+        const logs = await db
+            .select()
+            .from(auditLogTable)
+            .innerJoin(leaveRequestTable, eq(auditLogTable.leaveRequestId, leaveRequestTable.id))
+            .innerJoin(employeeTable, eq(auditLogTable.performedBy, employeeTable.id))
+
+        return logs
     }
 }
