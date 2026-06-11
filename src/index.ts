@@ -3,6 +3,7 @@ import employeeRoutes from './routes/employee.routes'
 import { logger } from 'hono/logger'
 import leaveRoutes from './routes/leave.routes'
 import authRoutes from './routes/auth.routes'
+import auditRoutes from './routes/audit.routes'
 
 const app = new Hono()
 
@@ -15,5 +16,6 @@ app.get('/', (c) => {
 app.route("/auth", authRoutes)
 app.route("/employee", employeeRoutes)
 app.route("/leave", leaveRoutes)
+app.route("/audit", auditRoutes)
 
 export default app
